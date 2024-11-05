@@ -44,11 +44,18 @@ std::vector<scene::objectInitializer> scene::objectInitializer::objectDataConstr
     */
     std::vector<scene::objectInitializer> constructedInitializerList;
     for (auto object : objects) {
-        objectInitializer newObj = objectInitializer(
+        objectInitializer newObjectInitializer = objectInitializer(
             object.getMass(),
-            object.get
-            )
+            object.getRadius(),
+            object.getPosition(),
+            object.getVelocity(),
+            object.getAcceleration(),
+            object.getColor(),
+            object.getID()
+            );
+        constructedInitializerList.push_back(newObjectInitializer);
     }
+    return constructedInitializerList;
 }
 
 //takes in an init list and spits out objects
@@ -60,7 +67,8 @@ std::vector<Object> scene::objectInitializer::getObjects(std::vector<objectIniti
             objectInit.mass,
             objectInit.radius,
             objectInit.color,
-            objectInit.position
+            objectInit.position,
+            objectInit.ID
             );
         newObj.updateVelocity(objectInit.acceleration);
         newObj.updateAcceleration(objectInit.acceleration);

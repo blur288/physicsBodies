@@ -21,7 +21,7 @@ class Object {
     int ID = 0;
 public:
     Object();
-    Object(float mass, float radius, Color color, physics::Vec2 position);
+    Object(float mass, float radius, Color color, physics::Vec2 position, int ID=-1);
 
     float getMass();
     float getRadius();

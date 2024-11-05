@@ -20,8 +20,8 @@ public:
         Color color = WHITE;
         int ID = -1;
 
-        objectInitializer(float m, float r, physics::Vec2 p, physics::Vec2 v, physics::Vec2 a, Color c)
-            :mass(m), radius(r), position(p), velocity(v), acceleration(a), color(c)
+        objectInitializer(float m, float r, physics::Vec2 p, physics::Vec2 v, physics::Vec2 a, Color c, int id=-1)
+            :mass(m), radius(r), position(p), velocity(v), acceleration(a), color(c), ID(id)
         {}
 
         static std::vector<objectInitializer> objectDataConstruct(std::vector<Object> objects);
