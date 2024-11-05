@@ -10,7 +10,8 @@ scene::scene(std::vector<objectInitializer> objectInitlizers) {
             objectInit.mass,
             objectInit.radius,
             objectInit.color,
-            objectInit.position
+            objectInit.position,
+            objectInit.ID
             );
         newObj.updateVelocity(objectInit.acceleration);
         newObj.updateAcceleration(objectInit.acceleration);
@@ -34,14 +35,6 @@ void scene::drawBodies() {
 
 //this is a crazy func def but it just takes a list of objects and gives an init list
 std::vector<scene::objectInitializer> scene::objectInitializer::objectDataConstruct(std::vector<Object> objects) {
-    /*
-    * float mass = 0;
-        float radius = 0;
-        physics::Vec2 position = { 0,0};
-        physics::Vec2 velocity = { 0,0};
-        physics::Vec2 acceleration = { 0,0};
-        Color color = WHITE;
-    */
     std::vector<scene::objectInitializer> constructedInitializerList;
     for (auto object : objects) {
         objectInitializer newObjectInitializer = objectInitializer(

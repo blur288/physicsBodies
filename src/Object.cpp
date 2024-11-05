@@ -2,7 +2,7 @@
 #include <cmath>
 #include <iostream>
 
-Object::Object(float mass, float radius, Color color, physics::Vec2 position, int ID = -1) {
+Object::Object(float mass, float radius, Color color, physics::Vec2 position, int ID) {
     this->mass = mass;
     this->radius = radius;
     this->color = color;
