@@ -19,9 +19,21 @@ Object::Object() {
 
 
 void Object::drawObject() {
-    physics::Vec2 EndPoint = physics::calculatePositonBasedOnVelocity(position, {velocity.x, velocity.y * 100});
+    physics::Vec2 EndPoint = physics::calculatePositonBasedOnVelocity(position, {velocity.x * 100, velocity.y});
     DrawCircle(position.x, position.y, radius, color);
-    DrawLine(position.x, position.y, EndPoint.x, EndPoint.y, GREEN);
+    DrawLineEx({position.x, position.y}, {EndPoint.x, EndPoint.y}, 2, RED);
+
+    if (velocity.calculateMagnitude() < 0.1) return;
+    //arrow ONLY FOR VEL MAG >= 1
+    //random values for arrow "wing" that j look good
+    float wingMag = 9;
+    float wingRotation = 2.5; //radians
+    //first arrow wing
+    Vector2 arrowWingOne = {EndPoint.x + wingMag * cos(velocity.y + wingRotation), EndPoint.y + wingMag * sin(velocity.y + wingRotation)};
+    DrawLineEx({EndPoint.x, EndPoint.y}, arrowWingOne, 2, RED);
+
+    Vector2 arrowWingTwo = {EndPoint.x + wingMag * cos(velocity.y - wingRotation), EndPoint.y + wingMag * sin(velocity.y - wingRotation)};
+    DrawLineEx({EndPoint.x, EndPoint.y}, arrowWingTwo, 2, RED);
 
 }
 
@@ -31,13 +43,13 @@ void Object::updateObject() {
     //Velocity in components
 
     physics::Vec2 velo = {
-        velocity.y * cos(velocity.x),
-        velocity.y * sin(velocity.x)
+        velocity.x * cos(velocity.y),
+        velocity.x * sin(velocity.y)
     };
     //Acceleration in components
     physics::Vec2 accel = {
-        acceleration.y * cos(acceleration.x),
-        acceleration.y * sin(acceleration.x)
+        acceleration.x * cos(acceleration.y),
+        acceleration.x * sin(acceleration.y)
     };
     //Velocity in components based on v + a
     physics::Vec2 velocityComponents = { velo.x + accel.x, velo.y + accel.y };
@@ -45,8 +57,8 @@ void Object::updateObject() {
     //Convert from components to theta + magnitude
     float Theta = atan2(velocityComponents.y, velocityComponents.x);
     float Magnitude = sqrt(pow(velocityComponents.x, 2) + pow(velocityComponents.y, 2));
-    velocity.x = Theta;
-    velocity.y = Magnitude;
+    velocity.y = Theta;
+    velocity.x = Magnitude;
 
     //Debug
     physics::Vec2 newPos =  calculatePositonBasedOnVelocity(position, velocity);
