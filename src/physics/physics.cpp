@@ -13,6 +13,16 @@ physics::Vec2 physics::calculatePositonBasedOnVelocity(Vec2 position, Vec2 veloc
     return {
         //x^ = m sin(theta) + x
         //y^ = m cos(theta) + y
-        .x = velocity.y * cos(velocity.x) + position.x,
-        .y = velocity.y * -sin(velocity.x) + position.y};
+        .x = velocity.x * cos(velocity.y) + position.x,
+        .y = velocity.x * -sin(velocity.y) + position.y};
 }
+
+float physics::Vec2::calculateMagnitude() {
+    return sqrt(pow(abs(x), 2) + pow(abs(y), 2));
+}
+
+physics::Vec2 physics::Vec2::convertToComponents() {
+    return {x * cos(y), y * sin(y)};
+
+}
+

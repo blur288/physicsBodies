@@ -5,6 +5,9 @@
 namespace physics {
     struct Vec2 {
         float x; float y;
+        float calculateMagnitude();
+        //Convert from (r, t) -> (x, y)
+        physics::Vec2 convertToComponents();
     };
     const double G = 0.000000000066742;
     Vec2 calculatePositonBasedOnVelocity(Vec2 position, Vec2 velocity);
