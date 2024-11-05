@@ -21,6 +21,12 @@ scene::scene(std::vector<objectInitializer> objectInitlizers) {
     }
 }
 
+std::vector<Object> scene::getObjects() {
+    //IMPORTANT: this will return a COPY of objects
+    return this->objects;
+}
+
+
 void scene::updateBodies() {
     for (Object& object : objects) {
         object.updateObject();

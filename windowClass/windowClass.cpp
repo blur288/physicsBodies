@@ -46,7 +46,30 @@ void windowClass::update() {
     }
 }
 
-void windowClass::drawUI() {
+void windowClass::drawChildrenPhysicBodies(int posX, int posY, scene::objectInitializer objectData) {
+    ImGui::SetNextWindowPos(ImVec2(posX, posY));
+    ImGui::SetNextWindowSize(ImVec2(500, 100));
+    ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.15, 0.15, 0.15, 1.0));
+
+    ImGui::BeginChild("Object");
+
+    std::string idText = "Object ID: " + std::to_string(objectData.ID);
+    ImGui::Text(idText.c_str());
+
+    std::string posText = "Object Pos: " + std::to_string(objectData.position.x) + ", " + std::to_string(objectData.position.y);
+    ImGui::Text(posText.c_str());
+
+    std::string velText = "Object Velocity: " + std::to_string(objectData.acceleration.x) + ", " + std::to_string(objectData.acceleration.y);
+    ImGui::Text(velText.c_str());
+
+    std::string accText = "Object Acceleration: " + std::to_string(objectData.velocity.x) + ", " + std::to_string(objectData.velocity.y);
+    ImGui::Text(accText.c_str());
+
+    ImGui::EndChild();
+    ImGui::PopStyleColor();
+}
+
+void windowClass::drawUI(std::vector<scene::objectInitializer> objectDataList) {
     rlImGuiBegin();
 
     ImGui::SetNextWindowPos(ImVec2(1000, 0));
@@ -62,12 +85,7 @@ void windowClass::drawUI() {
         ImGui::Checkbox("Gravity", &gravity);
 
         //Objects
-        ImGui::SetNextWindowPos(ImVec2(1010, 70));
-        ImGui::SetNextWindowSize(ImVec2(500, 100));
-        ImGui::BeginChild("Object");
-        for (int n = 0; n < 50; n++)
-            ImGui::Text("%04d: Some text", n);
-        ImGui::EndChild();
+        drawChildrenPhysicBodies(1010, 70, objectDataList[0]);
     }
     ImGui::End();
     ImGui::PopStyleColor();

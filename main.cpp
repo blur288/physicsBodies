@@ -28,7 +28,8 @@ int main()
         Scene.updateBodies();
         Scene.drawBodies();
 
-        window.drawUI();
+        //We need to send in body info to the UI
+        window.drawUI(scene::objectInitializer::objectDataConstruct(Scene.getObjects()));
 
         EndDrawing();
     }

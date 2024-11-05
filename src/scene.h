@@ -31,6 +31,8 @@ public:
     scene(std::vector<objectInitializer> objects);
     void updateBodies();
     void drawBodies();
+
+    std::vector<Object> getObjects();
 };
 
 

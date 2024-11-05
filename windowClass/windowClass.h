@@ -2,6 +2,7 @@
 #define WINDOWCLASS_H
 #include <raylib.h>
 #include <vector>
+#include "../src/scene.h"
 #include <string>
 
 class windowClass {
@@ -21,7 +22,8 @@ public:
     void init();
     void update();
     bool getState();
-    void drawUI();
+    void drawChildrenPhysicBodies(int posX, int posY, scene::objectInitializer objectData);
+    void drawUI(std::vector<scene::objectInitializer> objectDataList);
 };
 
 
