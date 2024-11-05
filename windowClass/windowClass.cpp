@@ -46,12 +46,13 @@ void windowClass::update() {
     }
 }
 
-void windowClass::drawChildrenPhysicBodies(int posX, int posY, scene::objectInitializer objectData) {
+void windowClass::drawChildrenPhysicBody(int posX, int posY, scene::objectInitializer objectData, int ID) {
     ImGui::SetNextWindowPos(ImVec2(posX, posY));
-    ImGui::SetNextWindowSize(ImVec2(500, 100));
+    ImGui::SetNextWindowSize(ImVec2(480, 100));
     ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.15, 0.15, 0.15, 1.0));
 
-    ImGui::BeginChild("Object");
+    std::string ChildName = "Object" + std::to_string(ID);
+    ImGui::BeginChild(ChildName.c_str());
 
     std::string idText = "Object ID: " + std::to_string(objectData.ID);
     ImGui::Text(idText.c_str());
@@ -67,6 +68,23 @@ void windowClass::drawChildrenPhysicBodies(int posX, int posY, scene::objectInit
 
     ImGui::EndChild();
     ImGui::PopStyleColor();
+}
+
+void windowClass::drawChildrenPhysicBodies(std::vector<scene::objectInitializer> objectData) {
+    //honestly magic offset numbers
+    const int rightOffset = 1010;
+    const int topOffset = 70;
+    //magic margin numbers!
+    const int sideMarginLength = 500;
+    const int verticleMarginLength = 100;
+    //some nice padding after first iteration cuz why not
+    int vertPadding = 0;
+
+    for (int i = 0; i < objectData.size(); i++) {
+        drawChildrenPhysicBody(rightOffset, topOffset + (verticleMarginLength * i) + vertPadding, objectData[i], i);
+        if (!i)
+            vertPadding = 10;
+    }
 }
 
 void windowClass::drawUI(std::vector<scene::objectInitializer> objectDataList) {
@@ -85,7 +103,8 @@ void windowClass::drawUI(std::vector<scene::objectInitializer> objectDataList) {
         ImGui::Checkbox("Gravity", &gravity);
 
         //Objects
-        drawChildrenPhysicBodies(1010, 70, objectDataList[0]);
+        drawChildrenPhysicBodies(objectDataList);
+
     }
     ImGui::End();
     ImGui::PopStyleColor();

@@ -22,7 +22,8 @@ public:
     void init();
     void update();
     bool getState();
-    void drawChildrenPhysicBodies(int posX, int posY, scene::objectInitializer objectData);
+    void drawChildrenPhysicBody(int posX, int posY, scene::objectInitializer objectData, int ID);
+    void drawChildrenPhysicBodies(std::vector<scene::objectInitializer> objectData);
     void drawUI(std::vector<scene::objectInitializer> objectDataList);
 };
 
