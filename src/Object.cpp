@@ -120,6 +120,23 @@ physics::Vec2 Object::getPosition() {
     return position;
 }
 
+float Object::getRadius() {
+    return radius;
+}
+Color Object::getColor() {
+    return color;
+}
+
+int Object::getID() {
+    return ID;
+}
+physics::Vec2 Object::getVelocity() {
+    return velocity;
+}
+physics::Vec2 Object::getAcceleration() {
+    return acceleration;
+}
+
 
 
 

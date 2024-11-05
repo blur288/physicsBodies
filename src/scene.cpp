@@ -42,9 +42,12 @@ std::vector<scene::objectInitializer> scene::objectInitializer::objectDataConstr
         physics::Vec2 acceleration = { 0,0};
         Color color = WHITE;
     */
-    std::vector<scene::objectInitializer> constructedInitializer;
+    std::vector<scene::objectInitializer> constructedInitializerList;
     for (auto object : objects) {
-
+        objectInitializer newObj = objectInitializer(
+            object.getMass(),
+            object.get
+            )
     }
 }
 

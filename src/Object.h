@@ -24,6 +24,11 @@ public:
     Object(float mass, float radius, Color color, physics::Vec2 position);
 
     float getMass();
+    float getRadius();
+    Color getColor();
+    int getID();
+    physics::Vec2 getVelocity();
+    physics::Vec2 getAcceleration();
     physics::Vec2 getPosition();
 
     void updateVelocity(physics::Vec2 velocity);
