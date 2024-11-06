@@ -13,7 +13,7 @@ scene::scene(std::vector<objectInitializer> objectInitlizers) {
             objectInit.position,
             objectInit.ID
             );
-        newObj.updateVelocity(objectInit.acceleration);
+        newObj.updateVelocity(objectInit.velocity);
         newObj.updateAcceleration(objectInit.acceleration);
         newObj.setID(this->ID);
         this->ID++;
@@ -69,7 +69,7 @@ std::vector<Object> scene::objectInitializer::getObjects(std::vector<objectIniti
             objectInit.position,
             objectInit.ID
             );
-        newObj.updateVelocity(objectInit.acceleration);
+        newObj.updateVelocity(objectInit.velocity);
         newObj.updateAcceleration(objectInit.acceleration);
         constructedObjects.push_back(newObj);
     }
@@ -77,6 +77,40 @@ std::vector<Object> scene::objectInitializer::getObjects(std::vector<objectIniti
 }
 
 
+void scene::Gravity() {
+    //Add all forces
+    physics::Vec2 totalForce = {};
+    std::vector<physics::Vec2> Forces = {};
+    for (Object &object : objects) {
+        Forces = {};
+        for (auto comparatorObject : objects) {
+            if (comparatorObject.getID() == object.getID()) continue;
+            //f = G * (m1 + m2) / (r^2)
+            double productOfMasses = object.getMass() * comparatorObject.getMass(); //(m1 + m2)
+            double radius = Object::calculateDistanceTwoObjects(object, comparatorObject); //(r^2)
+            float force = physics::G * productOfMasses / pow(radius, 2);
+            float direction = comparatorObject.calculateDirection(object) + PI;
+            std::cout << direction << std::endl;
+            Forces.push_back({force, direction});
+        }
+
+        //Add all forces
+        totalForce = {};
+        for (auto Force : Forces) {
+            //Convert to x y component
+            physics::Vec2 forceInComponent = Force.convertToComponents();
+            totalForce.x += forceInComponent.x;
+            totalForce.y += forceInComponent.y;
+        }
+        totalForce = totalForce.convertToPolar();
+        //2nd law of motion
+        totalForce.x /= object.getMass();
+        //coles law of hacky fixes
+        totalForce.x *= 10000;
+        //Convert totalForce to (r, t)
+        object.updateAcceleration(totalForce);
+    }
+}
 
 
 

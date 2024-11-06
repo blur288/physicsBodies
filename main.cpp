@@ -12,20 +12,21 @@ int main()
     windowClass window(900, 1500, 60, BLACK, "Physics Demo");
     window.init();
     rlImGuiSetup(true);
-    //Define Obj1
-    //Mass: 50
-    //Radius: 50
-    //Pos (500, 500)
-    scene::objectInitializer Obj0 {1000000000000.0, 50, {500, 500}, {0,0}, {0,0}, WHITE};
-    scene::objectInitializer Obj1 {100.0, 10, {500, 300}, {0,0}, {0,0}, WHITE};
-    scene Scene({Obj0, Obj1});
+
+    scene::objectInitializer Obj0 {100000000.0, 3, {266, 500}, {0,0}, {0,0}, WHITE};
+    scene::objectInitializer Obj1 {100000000.0, 3, {499, 500}, {0.5,0}, {0,0}, WHITE};
+    scene::objectInitializer Obj2 {100000000.0, 3, {765, 500}, {0.5,0}, {0,0}, WHITE};
+    scene Scene({Obj0, Obj1, Obj2});
 
     while (!WindowShouldClose())
     {
         BeginDrawing();
         ClearBackground(BLACK);
 
-        Scene.updateBodies();
+        if (!window.getPaused())
+            if (window.getGravity())
+                Scene.Gravity();
+            Scene.updateBodies();
         Scene.drawBodies();
 
         //We need to send in body info to the UI

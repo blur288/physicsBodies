@@ -26,6 +26,7 @@ void Object::drawObject() {
     if (velocity.calculateMagnitude() < 0.1) return;
     //arrow ONLY FOR VEL MAG >= 1
     //random values for arrow "wing" that j look good
+    /*
     float wingMag = 9;
     float wingRotation = 2.5; //radians
     //first arrow wing
@@ -34,6 +35,7 @@ void Object::drawObject() {
 
     Vector2 arrowWingTwo = {EndPoint.x + wingMag * cos(velocity.y - wingRotation), EndPoint.y + wingMag * sin(velocity.y - wingRotation)};
     DrawLineEx({EndPoint.x, EndPoint.y}, arrowWingTwo, 2, RED);
+    */
 
 }
 
@@ -95,6 +97,7 @@ void Object::Debug() {
     std::cout << "Py: " << this->position.y << "\n";
 }
 
+//compare distance in cartesion
 float Object::calculateDistanceTwoObjects(Object obj1, Object obj2) {
     //Sqrt( arg1^2 + arg2^2 )
     float arg1 = obj1.position.x - obj2.position.x;
@@ -122,6 +125,7 @@ float Object::calculateDirectionTwoObjects(Object obj1, Object obj2) {
 
 float Object::calculateDirection(Object object) {
     //Why are we adding pi to this?: not sure, just works
+    float d = atan2(object.position.y - this->position.y, object.position.x - this->position.x);
     return atan2(object.position.y - this->position.y, object.position.x - this->position.x) + PI;
 }
 

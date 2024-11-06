@@ -25,8 +25,12 @@ void windowClass::init() {
     playButton = LoadTexture("../asset/play.png");
 }
 
-bool windowClass::getState() {
+bool windowClass::getPaused() {
     return paused;
+}
+
+bool windowClass::getGravity() {
+    return gravity;
 }
 
 void windowClass::update() {
@@ -60,10 +64,10 @@ void windowClass::drawChildrenPhysicBody(int posX, int posY, scene::objectInitia
     std::string posText = "Object Pos: " + std::to_string(objectData.position.x) + ", " + std::to_string(objectData.position.y);
     ImGui::Text(posText.c_str());
 
-    std::string velText = "Object Velocity: " + std::to_string(objectData.acceleration.x) + ", " + std::to_string(objectData.acceleration.y);
+    std::string velText = "Object Acceleration: " + std::to_string(objectData.acceleration.x) + ", " + std::to_string(objectData.acceleration.y);
     ImGui::Text(velText.c_str());
 
-    std::string accText = "Object Acceleration: " + std::to_string(objectData.velocity.x) + ", " + std::to_string(objectData.velocity.y);
+    std::string accText = "Object Velocity: " + std::to_string(objectData.velocity.x) + ", " + std::to_string(objectData.velocity.y);
     ImGui::Text(accText.c_str());
 
     ImGui::EndChild();

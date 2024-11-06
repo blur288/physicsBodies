@@ -21,8 +21,16 @@ float physics::Vec2::calculateMagnitude() {
     return sqrt(pow(abs(x), 2) + pow(abs(y), 2));
 }
 
+//polar to cartesian
 physics::Vec2 physics::Vec2::convertToComponents() {
-    return {x * cos(y), y * sin(y)};
+    return {-x * cos(y), x * sin(y)};
+
+}
+
+physics::Vec2 physics::Vec2::convertToPolar() {
+    float Mag = this->calculateMagnitude();
+    float Direction = atan2(y, x);
+    return {Mag, Direction};
 
 }
 

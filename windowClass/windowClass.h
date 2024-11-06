@@ -21,7 +21,8 @@ public:
     windowClass(int ScreenHeight, int ScreenWidth, int TargetFps, Color BackgroundColor, std::string windowName);
     void init();
     void update();
-    bool getState();
+    bool getPaused();
+    bool getGravity();
     void drawChildrenPhysicBody(int posX, int posY, scene::objectInitializer objectData, int ID);
     void drawChildrenPhysicBodies(std::vector<scene::objectInitializer> objectData);
     void drawUI(std::vector<scene::objectInitializer> objectDataList);
