@@ -28,10 +28,18 @@ public:
         static std::vector<Object> getObjects(std::vector<objectInitializer> objectData);
     };
 
+    //Acceleration / Velocity for new object
+    physics::Vec2* acceleration = {};
+    physics::Vec2* velocity = {};
+
     scene(std::vector<objectInitializer> objects);
     void updateBodies();
     void drawBodies();
     void Gravity();
+
+    void getInput();
+    physics::Vec2* getAcceleration();
+    physics::Vec2* getVelocity();
 
     std::vector<Object> getObjects();
 };

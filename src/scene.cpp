@@ -26,6 +26,14 @@ std::vector<Object> scene::getObjects() {
     return this->objects;
 }
 
+physics::Vec2 *scene::getAcceleration() {
+    return acceleration;
+}
+
+physics::Vec2 *scene::getVelocity() {
+    return velocity;
+}
+
 
 void scene::updateBodies() {
     for (Object& object : objects) {
@@ -76,6 +84,22 @@ std::vector<Object> scene::objectInitializer::getObjects(std::vector<objectIniti
     return constructedObjects;
 }
 
+void scene::getInput() {
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+    {
+        Vector2 mousePosition = GetMousePosition();
+        if (mousePosition.x >= 1000) return;
+        //{100000000.0, 6, {133, 400}, {0,0}, {0,0}, WHITE};
+        Object newObj = Object(100000000, 6, WHITE, {mousePosition.x, mousePosition.y});
+        newObj.updateAcceleration({0,0});
+        newObj.updateVelocity({0,0});
+        newObj.setID(this->ID);
+        this->ID++;
+        objects.push_back(newObj);
+
+    }
+}
+
 
 void scene::Gravity() {
     //Add all forces
@@ -90,7 +114,6 @@ void scene::Gravity() {
             double radius = Object::calculateDistanceTwoObjects(object, comparatorObject); //(r^2)
             float force = physics::G * productOfMasses / pow(radius, 2);
             float direction = comparatorObject.calculateDirection(object) + PI;
-            std::cout << direction << std::endl;
             Forces.push_back({force, direction});
         }
 

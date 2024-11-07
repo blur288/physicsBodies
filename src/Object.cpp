@@ -17,11 +17,14 @@ Object::Object() {
     this->position = {0,0};
 }
 
+physics::Vec2 getAveragePosition() {
+
+}
 
 void Object::drawObject() {
     physics::Vec2 EndPoint = physics::calculatePositonBasedOnVelocity(position, {velocity.x * 100, velocity.y});
     DrawCircle(position.x, position.y, radius, color);
-    DrawLineEx({position.x, position.y}, {EndPoint.x, EndPoint.y}, 2, RED);
+    //DrawLineEx({position.x, position.y}, {EndPoint.x, EndPoint.y}, 2, RED);
 
     if (velocity.calculateMagnitude() < 0.1) return;
     //arrow ONLY FOR VEL MAG >= 1

@@ -15,6 +15,10 @@ class windowClass {
     //states
     bool paused = false;
     bool gravity = true;
+private:
+    void drawChildrenPhysicBody(int posX, int posY, scene::objectInitializer objectData, int ID);
+    void drawChildrenPhysicBodies(std::vector<scene::objectInitializer> objectData);
+    void drawAccVel();
 public:
     windowClass();
     ~windowClass();
@@ -23,8 +27,6 @@ public:
     void update();
     bool getPaused();
     bool getGravity();
-    void drawChildrenPhysicBody(int posX, int posY, scene::objectInitializer objectData, int ID);
-    void drawChildrenPhysicBodies(std::vector<scene::objectInitializer> objectData);
     void drawUI(std::vector<scene::objectInitializer> objectDataList);
 };
 

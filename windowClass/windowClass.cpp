@@ -51,6 +51,7 @@ void windowClass::update() {
 }
 
 void windowClass::drawChildrenPhysicBody(int posX, int posY, scene::objectInitializer objectData, int ID) {
+    ImVec2 v2CSP = ImGui::GetCursorScreenPos();
     ImGui::SetNextWindowPos(ImVec2(posX, posY));
     ImGui::SetNextWindowSize(ImVec2(480, 100));
     ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.15, 0.15, 0.15, 1.0));
@@ -82,13 +83,19 @@ void windowClass::drawChildrenPhysicBodies(std::vector<scene::objectInitializer>
     const int sideMarginLength = 500;
     const int verticleMarginLength = 100;
     //some nice padding after first iteration cuz why not
-    int vertPadding = 0;
 
+
+    ImVec2 v2CSP = ImGui::GetCursorScreenPos();
     for (int i = 0; i < objectData.size(); i++) {
-        drawChildrenPhysicBody(rightOffset, topOffset + (verticleMarginLength * i) + vertPadding, objectData[i], i);
-        if (!i)
-            vertPadding = 10;
+        //drawChildrenPhysicBody(rightOffset, topOffset + (verticleMarginLength * i), objectData[i], i);
+        drawChildrenPhysicBody(v2CSP.x, v2CSP.y + (verticleMarginLength * i), objectData[i], i);
     }
+}
+
+void windowClass::drawAccVel() {
+    ImDrawList* drawList = ImGui::GetWindowDrawList();
+    drawList->AddRectFilled({1100, 20}, {1200, 120}, IM_COL32_WHITE);
+    drawList->AddRectFilled({1250, 20}, {1350, 120}, IM_COL32_WHITE);
 }
 
 void windowClass::drawUI(std::vector<scene::objectInitializer> objectDataList) {
@@ -105,9 +112,11 @@ void windowClass::drawUI(std::vector<scene::objectInitializer> objectDataList) {
     {
         ImGui::Checkbox("Paused", &paused);
         ImGui::Checkbox("Gravity", &gravity);
+        drawAccVel();
 
-        //Objects
-        drawChildrenPhysicBodies(objectDataList);
+        ImGui::BeginChild("objects");
+            drawChildrenPhysicBodies(objectDataList);
+        ImGui::EndChild();
 
     }
     ImGui::End();
