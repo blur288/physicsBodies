@@ -91,8 +91,8 @@ void scene::getInput() {
         if (mousePosition.x >= 1000) return;
         //{100000000.0, 6, {133, 400}, {0,0}, {0,0}, WHITE};
         Object newObj = Object(100000000, 6, WHITE, {mousePosition.x, mousePosition.y});
-        newObj.updateAcceleration({0,0});
-        newObj.updateVelocity({0,0});
+        newObj.updateAcceleration({acceleration->x * -1, acceleration->y });
+        newObj.updateVelocity({velocity->x * -1, velocity->y});
         newObj.setID(this->ID);
         this->ID++;
         objects.push_back(newObj);
@@ -135,6 +135,10 @@ void scene::Gravity() {
     }
 }
 
+scene::~scene() {
+    free(velocity);
+    free(acceleration);
+}
 
 
 /*

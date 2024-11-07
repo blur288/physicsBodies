@@ -4,6 +4,8 @@
 #include <vector>
 #include "../src/scene.h"
 #include <string>
+#include "imgui/imgui.h"
+#include "rlImGui.h"
 
 class windowClass {
     int screenHeight = 1000;
@@ -18,7 +20,7 @@ class windowClass {
 private:
     void drawChildrenPhysicBody(int posX, int posY, scene::objectInitializer objectData, int ID);
     void drawChildrenPhysicBodies(std::vector<scene::objectInitializer> objectData);
-    void drawAccVel();
+    void drawAccVel(physics::Vec2* Acceleration, physics::Vec2* Velocity);
 public:
     windowClass();
     ~windowClass();
@@ -27,7 +29,7 @@ public:
     void update();
     bool getPaused();
     bool getGravity();
-    void drawUI(std::vector<scene::objectInitializer> objectDataList);
+    void drawUI(scene& scene);
 };
 
 

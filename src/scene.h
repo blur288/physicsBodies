@@ -29,8 +29,8 @@ public:
     };
 
     //Acceleration / Velocity for new object
-    physics::Vec2* acceleration = {};
-    physics::Vec2* velocity = {};
+    physics::Vec2* acceleration = new physics::Vec2{0, 0};
+    physics::Vec2* velocity = new physics::Vec2{0, 0};
 
     scene(std::vector<objectInitializer> objects);
     void updateBodies();
@@ -42,6 +42,8 @@ public:
     physics::Vec2* getVelocity();
 
     std::vector<Object> getObjects();
+
+    ~scene();
 };
 
 

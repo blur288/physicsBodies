@@ -46,7 +46,6 @@ void Object::drawObject() {
 void Object::updateObject() {
     //convert velocity and acceleration to vector components
     //Velocity in components
-
     physics::Vec2 velo = {
         velocity.x * cos(velocity.y),
         velocity.x * sin(velocity.y)
