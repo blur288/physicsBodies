@@ -29,10 +29,14 @@ public:
     };
 
     //Acceleration / Velocity for new object
-    physics::Vec2* acceleration = new physics::Vec2{0, 0};
-    physics::Vec2* velocity = new physics::Vec2{0, 0};
+    physics::Vec2* newAcceleration = new physics::Vec2{0, 0};
+    physics::Vec2* newVelocity = new physics::Vec2{0, 0};
+    float* newMass = new float(100000000);
+    float* newRadius = new float(6);
 
     scene(std::vector<objectInitializer> objects);
+    void removeBody(int ID);
+
     void updateBodies();
     void drawBodies();
     void Gravity();

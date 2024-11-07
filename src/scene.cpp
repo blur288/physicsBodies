@@ -21,17 +21,24 @@ scene::scene(std::vector<objectInitializer> objectInitlizers) {
     }
 }
 
+void scene::removeBody(int ID) {
+    for (int i = 0; i < objects.size(); i++) {
+        if (objects[i].getID() == ID) objects.erase(objects.begin() + i);
+    }
+}
+
+
 std::vector<Object> scene::getObjects() {
     //IMPORTANT: this will return a COPY of objects
     return this->objects;
 }
 
 physics::Vec2 *scene::getAcceleration() {
-    return acceleration;
+    return newAcceleration;
 }
 
 physics::Vec2 *scene::getVelocity() {
-    return velocity;
+    return newVelocity;
 }
 
 
@@ -89,12 +96,13 @@ void scene::getInput() {
     {
         Vector2 mousePosition = GetMousePosition();
         if (mousePosition.x >= 1000) return;
-        //{100000000.0, 6, {133, 400}, {0,0}, {0,0}, WHITE};
-        Object newObj = Object(100000000, 6, WHITE, {mousePosition.x, mousePosition.y});
-        newObj.updateAcceleration({acceleration->x * -1, acceleration->y });
-        newObj.updateVelocity({velocity->x * -1, velocity->y});
+
+        Object newObj = Object(*newMass, *newRadius, WHITE, {mousePosition.x, mousePosition.y});
+        newObj.updateAcceleration({newAcceleration->x * -1, newAcceleration->y });
+        newObj.updateVelocity({newVelocity->x * -1, newVelocity->y});
         newObj.setID(this->ID);
         this->ID++;
+
         objects.push_back(newObj);
 
     }
@@ -136,8 +144,10 @@ void scene::Gravity() {
 }
 
 scene::~scene() {
-    free(velocity);
-    free(acceleration);
+    free(newVelocity);
+    free(newAcceleration);
+    free(newMass);
+    free(newRadius);
 }
 
 

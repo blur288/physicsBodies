@@ -8,8 +8,10 @@
 
 int main()
 {
+
+    scene Scene({});
     //ScreenHeight, ScreenWidth, targetFps, windowName
-    windowClass window(900, 1500, 60, BLACK, "Physics Demo");
+    windowClass window(900, 1500, 60, BLACK, "Physics Demo", Scene);
     window.init();
     rlImGuiSetup(true);
 
@@ -19,7 +21,6 @@ int main()
     //scene::objectInitializer Obj1 {100000000.0, 6, {266, 500}, {0.5,0}, {0,0}, WHITE};
     //scene::objectInitializer Obj2 {100000000.0, 6, {499, 600}, {0.5,0}, {0,0}, WHITE};
     //scene Scene({Obj0, Obj1, Obj2});
-    scene Scene({});
 
     while (!WindowShouldClose())
     {

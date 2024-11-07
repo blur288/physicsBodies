@@ -17,6 +17,7 @@ class windowClass {
     //states
     bool paused = false;
     bool gravity = true;
+    scene& cacheScene;
 private:
     void drawChildrenPhysicBody(int posX, int posY, scene::objectInitializer objectData, int ID);
     void drawChildrenPhysicBodies(std::vector<scene::objectInitializer> objectData);
@@ -24,7 +25,7 @@ private:
 public:
     windowClass();
     ~windowClass();
-    windowClass(int ScreenHeight, int ScreenWidth, int TargetFps, Color BackgroundColor, std::string windowName);
+    windowClass(int ScreenHeight, int ScreenWidth, int TargetFps, Color BackgroundColor, std::string windowName, scene& Scene);
     void init();
     void update();
     bool getPaused();
